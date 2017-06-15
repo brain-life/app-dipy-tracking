@@ -5,6 +5,8 @@
 #    exit 1
 #fi
 
+ENV="IUHPC"
+
 if [ $ENV == "IUHPC" ]; then
     jobid=`cat jobid`
     echo "running qdel $jobid"
