@@ -10,7 +10,7 @@ if [ $ENV == "IUHPC" ]; then
 fi
 
 #matlab -nodisplay -nosplash -r main
-python create_trk
+python main.py
 
 if [-s prob.trk ];
 then 
