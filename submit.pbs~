@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=16:dc2,walltime=3:00:00
+#PBS -N app-dipy-tracking
+#PBS -V
+
+if [ $ENV == "IUHPC" ]; then
+	cd $PBS_O_WORKDIR
+	module unload python
+	module load dipy
+fi
+
+#matlab -nodisplay -nosplash -r main
+python create_csd
+
+if [-s prob.trk ];
+then 
+	echo 0 > finished
+else 
+	echo "files missing"
+	echo 1> finished
+	exit 1
+fi
