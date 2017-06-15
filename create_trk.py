@@ -1,5 +1,4 @@
 import time
-import os, system
 from dipy.tracking.local import LocalTracking
 import csd_peaks, create_classifier, create_seeds, load_file, prob_dg
 from nibabel.streamlines import Tractogram, save

@@ -1,24 +1,19 @@
 {
-  "name": "app-dipy-csdmodel",
+  "name": "app-dipy-tracking",
   "version": "1.0.0",
-  "description": "Creating the csd model",
+  "description": "multishell tracking of white matter tracts",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-    "start": "start.sh",
-    "stop": "stop.sh",
-    "status": "status.sh"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brain-life/brainpy/tree/master/complete_tracking"
+    "url": "git+https://github.com/brain-life/app-dipy-tracking.git"
   },
-  "keywords": [
-    "model",
-    "csd",
-    "brainpy",
-    "probabilistic"
-  ],
-  "author": "Aman Arya <aarya22@uw.edu>",
-  "license": "ISC"
+  "author": "Aman Arya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brain-life/app-dipy-tracking/issues"
+  },
+  "homepage": "https://github.com/brain-life/app-dipy-tracking#readme"
 }
