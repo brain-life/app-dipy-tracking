@@ -17,7 +17,7 @@
   "author": "Aman Arya <aarya22@uw.edu>“,
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/brain-life/app-dipy-tracking/issues"
+    "url": "git+https://github.com/brain-life/app-dipy-tracking/issues"
   },
-  "homepage": "https://github.com/brain-life/app-dipy-tracking#readme"
+  "homepage": "git+https://github.com/brain-life/app-dipy-tracking#readme"
 }
