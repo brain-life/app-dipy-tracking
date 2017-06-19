@@ -2,6 +2,7 @@ import time
 import numpy as np
 import nibabel as nib
 import json
+import os, sys
 from dipy.core.gradients import gradient_table
 from dipy.viz import fvtk, actor, window
 from dipy.viz.colormap import line_colors
@@ -16,6 +17,12 @@ from nibabel.streamlines import Tractogram, save
 from dipy.reconst.csdeconv import (ConstrainedSphericalDeconvModel,
                                    auto_response)
 from dipy.direction import ProbabilisticDirectionGetter
+
+env = os.environ['ENV']
+if env == 'IUHPC':
+    sys.path.append("/N/dc2/projects/lifebid/code/aarya/dipy")
+if env == 'VM':
+    sys.path.append("/usr/local/dipy") #add this on jetstream
 
 def main():
     start = time.time()
@@ -40,11 +47,6 @@ def main():
     wm_mask = np.zeros(aparc.shape)
     for l in wm_regions:
         wm_mask[aparc == l] = 1
-
-    callosal_regions = [255, 254, 253]
-    callosum = np.zeros(aparc.shape)
-    for c in callosal_regions:
-        callosum[aparc == c] = 1
 
     # Create the gradient table from the bvals and bvecs
 
@@ -115,7 +117,6 @@ def main():
         # Save still images for this static example.
         fvtk.record(r, n_frames=1, out_path='probabilistic.png',
                     size=(800, 800))
-
     print ('Made pretty pictures')
 
 main()

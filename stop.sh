@@ -5,7 +5,7 @@
 #    exit 1
 #fi
 
-ENV="IUHPC"
+#ENV="IUHPC"
 
 if [ $ENV == "IUHPC" ]; then
     jobid=`cat jobid`

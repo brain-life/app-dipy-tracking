@@ -3,7 +3,7 @@
 #PBS -N app-dipy-tracking
 #PBS -V
 
-ENV="IUHPC"
+#ENV="IUHPC"
 
 if [ $ENV == "IUHPC" ]; then
 	cd $PBS_O_WORKDIR
