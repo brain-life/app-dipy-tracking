@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brain-life/app-dipy-tracking.git"
+    "url": "git+https://github.com/brain-life/app-dipy-tracking.git"
   },
   "author": "Aman Arya <aarya22@uw.edu>“,
   "license": "ISC",
