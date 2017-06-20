@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/brain-life/app-dipy-tracking.git"
   },
-  "author": "Aman Arya <aarya22@uw.edu>“,
+  "author": "Aman Arya <aarya22@uw.edu>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/brain-life/app-dipy-tracking/issues"
