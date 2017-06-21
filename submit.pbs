@@ -14,7 +14,7 @@ fi
 #matlab -nodisplay -nosplash -r main
 python $SERVICE_DIR/main.py
 
-if [-s csa_prob.trk ];
+if [ -s csa_prob.trk ];
 then 
 	echo 0 > finished
 else 
