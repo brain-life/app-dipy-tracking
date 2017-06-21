@@ -12,7 +12,7 @@ if [ $ENV == "IUHPC" ]; then
 fi
 
 #matlab -nodisplay -nosplash -r main
-python main.py
+python $SERVICE_DIR/main.py
 
 if [-s csa_prob.trk ];
 then 
