@@ -17,13 +17,13 @@ from nibabel.streamlines import Tractogram, save
 from dipy.reconst.csdeconv import (ConstrainedSphericalDeconvModel,
                                    auto_response)
 from dipy.direction import ProbabilisticDirectionGetter
-
+"""
 env = os.environ['ENV']
 if env == 'IUHPC':
     sys.path.append("/N/dc2/projects/lifebid/code/aarya/dipy")
 if env == 'VM':
     sys.path.append("/usr/local/dipy") #add this on jetstream
-
+"""
 def main():
     start = time.time()
 
@@ -103,9 +103,9 @@ def main():
     
     # Create a tractogram from the streamlines and save it 
     tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
-    save(tractogram, 'csa_prob.trk')
+    save(tractogram, 'csa_prob.tck')
     end = time.time()
-    print("Created the trk file: " + str((end - start)))
+    print("Created the tck file: " + str((end - start)))
 
     # Prepare the display objects.
     print("Making pretty pictures")
