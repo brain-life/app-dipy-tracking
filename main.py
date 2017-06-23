@@ -103,9 +103,9 @@ def main():
     
     # Create a tractogram from the streamlines and save it 
     tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
-    save(tractogram, 'csa_prob.trk')
+    save(tractogram, 'csa_prob.tck')
     end = time.time()
-    print("Created the trk file: " + str((end - start)))
+    print("Created the tck file: " + str((end - start)))
 
     # Prepare the display objects.
     print("Making pretty pictures")
