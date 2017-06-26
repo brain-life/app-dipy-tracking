@@ -3,12 +3,14 @@
 #PBS -N app-dipy-tracking
 #PBS -V
 
+
+#for local testing
+if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
 #ENV="IUHPC"
 
-if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
+[ $PBS_O_WORKDIR ] && cd $PBS_O_WORKDIR
 
 if [ $ENV == "IUHPC" ]; then
-	
 	if [ $HPC == "KARST" ]; then
 		module unload python
 		module load anaconda2
@@ -29,9 +31,22 @@ if [ $ENV == "VM" ]; then
 	export PYTHONPATH=$PYTHONPATH:/usr/local/nibabel
 fi
 
-input_nii_gz=`$SERVICE_DIR/jq .data_file config.json`
-data_seg=`$SERVICE_DIR/jq .freesurfer config.json`
-mri_label2vol --seg $data_seg/mri/aparc+aseg.mgz --temp $input_nii_gz --regheader $data_seg/mri/aparc+aseg.mgz --o data_seg/mri/aparc+aseg.nii.gz
+input_nii_gz=`$SERVICE_DIR/jq -r .data_file config.json`
+data_seg=`$SERVICE_DIR/jq -r .data_fs_seg config.json`
+echo "converting freesurfer segments to volume"
+pwd
+echo mri_label2vol \
+	--seg $data_seg/mri/aparc+aseg.nii.gz \
+	--regheader $data_seg/mri/aparc+aseg.nii.gz \
+	--temp $input_nii_gz \
+	--o volume.nii.gz
+mri_label2vol \
+	--seg $data_seg/mri/aparc+aseg.nii.gz \
+	--regheader $data_seg/mri/aparc+aseg.nii.gz \
+	--temp $input_nii_gz \
+	--o volume.nii.gz
+
+echo "running main"
 
 #matlab -nodisplay -nosplash -r main
 time python $SERVICE_DIR/main.py
