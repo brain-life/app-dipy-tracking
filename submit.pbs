@@ -36,6 +36,13 @@ mri_label2vol --seg $data_seg/mri/aparc+aseg.mgz --temp $input_nii_gz --regheade
 #matlab -nodisplay -nosplash -r main
 time python $SERVICE_DIR/main.py
 
+ret=$?
+if [ $ret -ne 0 ]; then
+    echo "main.py failed"
+    echo $ret > finished
+    exit $ret
+fi
+
 if [ -s csa_prob.tck ];
 then 
 	echo 0 > finished
