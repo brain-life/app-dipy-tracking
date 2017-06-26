@@ -30,7 +30,7 @@ if [ $ENV == "VM" ]; then
 fi
 
 input_nii_gz=`$SERVICE_DIR/jq .data_file config.json`
-data_seg = `$SERVICE_DIR/jq .freesurfer config.json`
+data_seg=`$SERVICE_DIR/jq .freesurfer config.json`
 mri_label2vol --seg $data_seg/mri/aparc+aseg.mgz --temp $input_nii_gz --regheader $data_seg/mri/aparc+aseg.mgz --o data_seg/mri/aparc+aseg.nii.gz
 
 #matlab -nodisplay -nosplash -r main
