@@ -6,13 +6,33 @@
 #ENV="IUHPC"
 
 if [ $ENV == "IUHPC" ]; then
-	cd $PBS_O_WORKDIR
-	module unload python
-	module load dipy
+	
+	if [ $HPC == "KARST" ]; then
+		module unload python
+		module load anaconda2
+		module load freesurfer/6.0.0
+	fi
+	if [ $HPC == "CARBONATE" ]; then
+		module unload python
+		module load anaconda/python2.7
+		module load freesurfer/6.0.0
+	fi
+	
+	export PYTHONPATH=$PYTHONPATH:/N/u/aryaam/Karst/github_repos/dipy
+	export PYTHONPATH=$PYTHONPATH:/N/u/aryaam/Karst/github_repos/nibabel
 fi
 
+if [ $ENV == "VM" ]; then
+	export PYTHONPATH=$PYTHONPATH:/usr/local/dipy
+	export PYTHONPATH=$PYTHONPATH:/usr/local/nibabel
+fi
+
+input_nii_gz=`$SERVICE_DIR/jq .data_file config.json`
+data_seg = `$SERVICE_DIR/jq .freesurfer config.json`
+mri_label2vol --seg data_seg/mri/aparc+aseg.mgz --temp input_nii_gz --regheader data_seg/mri/aparc+aseg.mgz --o data_seg/mri/aparc+aseg.nii.gz
+
 #matlab -nodisplay -nosplash -r main
-python $SERVICE_DIR/main.py
+time python $SERVICE_DIR/main.py
 
 if [ -s csa_prob.tck ];
 then 
