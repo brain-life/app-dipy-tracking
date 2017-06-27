@@ -33,18 +33,19 @@ fi
 
 input_nii_gz=`$SERVICE_DIR/jq -r .data_file config.json`
 data_seg=`$SERVICE_DIR/jq -r .freesurfer config.json`
-data_seg={data_seg:3}
-input_nii_gz={input_nii_gz:3}
+
+#data_seg={data_seg:3}
+#input_nii_gz={input_nii_gz:3}
 echo "converting freesurfer segments to volume"
 pwd
 echo mri_label2vol \
-	--seg $data_seg/mri/aparc+aseg.nii.gz \
-	--regheader $data_seg/mri/aparc+aseg.nii.gz \
+	--seg $data_seg/mri/aparc+aseg.mgz \
+	--regheader $data_seg/mri/aparc+aseg.mgz \
 	--temp $input_nii_gz \
 	--o volume.nii.gz
 mri_label2vol \
-	--seg $data_seg/mri/aparc+aseg.nii.gz \
-	--regheader $data_seg/mri/aparc+aseg.nii.gz \
+	--seg $data_seg/mri/aparc+aseg.mgz \
+	--regheader $data_seg/mri/aparc+aseg.mgz \
 	--temp $input_nii_gz \
 	--o $volume.nii.gz
 
