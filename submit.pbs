@@ -48,7 +48,6 @@ mri_label2vol \
 
 echo "running main"
 
-#matlab -nodisplay -nosplash -r main
 time python $SERVICE_DIR/main.py
 
 ret=$?
