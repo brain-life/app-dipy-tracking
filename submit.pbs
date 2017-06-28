@@ -58,7 +58,7 @@ if [ $ret -ne 0 ]; then
     exit $ret
 fi
 
-if [ -s csa_prob.tck ];
+if [ -s track.tck ];
 then 
 	echo 0 > finished
 else 
