@@ -37,7 +37,6 @@ data_seg=`$SERVICE_DIR/jq -r .freesurfer config.json`
 #data_seg={data_seg:3}
 #input_nii_gz={input_nii_gz:3}
 echo "converting freesurfer segments to volume"
-pwd
 echo mri_label2vol \
 	--seg $data_seg/mri/aparc+aseg.mgz \
 	--regheader $data_seg/mri/aparc+aseg.mgz \
@@ -47,10 +46,9 @@ mri_label2vol \
 	--seg $data_seg/mri/aparc+aseg.mgz \
 	--regheader $data_seg/mri/aparc+aseg.mgz \
 	--temp $input_nii_gz \
-	--o $volume.nii.gz
+	--o volume.nii.gz
 
 echo "running main"
-
 time python $SERVICE_DIR/main.py
 
 ret=$?
