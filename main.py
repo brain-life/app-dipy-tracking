@@ -87,7 +87,7 @@ def main():
     print('Created the Tissue Classifier: ' + str(time.time() - start))
 
     # Create the probabilistic model
-    streamlines = LocalTracking(prob_dg, tissue_classifier=classifier, seeds=seeds, affine=affine,
+    streamlines = LocalTracking(prob_dg, tissue_classifier=classifier, seeds=seeds, affine=np.eye(4),
                                 step_size=.5, max_cross=1)
     print('Created the probabilistic model: ' + str(time.time() - start))
 
@@ -97,7 +97,7 @@ def main():
     
     # Create a tractogram from the streamlines and save it 
     tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
-    save(tractogram, 'csa_prob.tck')
+    save(tractogram, 'track.tck')
     end = time.time()
     print("Created the tck file: " + str((end - start)))
 
