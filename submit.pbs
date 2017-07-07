@@ -32,23 +32,23 @@ if [ $ENV == "VM" ]; then
 fi
 
 input_nii_gz=`$SERVICE_DIR/jq -r .data_file config.json`
-data_seg=`$SERVICE_DIR/jq -r .data_fs_seg config.json`
+data_seg=`$SERVICE_DIR/jq -r .freesurfer config.json`
+
+#data_seg={data_seg:3}
+#input_nii_gz={input_nii_gz:3}
 echo "converting freesurfer segments to volume"
-pwd
 echo mri_label2vol \
-	--seg $data_seg/mri/aparc+aseg.nii.gz \
-	--regheader $data_seg/mri/aparc+aseg.nii.gz \
+	--seg $data_seg/mri/aparc+aseg.mgz \
+	--regheader $data_seg/mri/aparc+aseg.mgz \
 	--temp $input_nii_gz \
 	--o volume.nii.gz
 mri_label2vol \
-	--seg $data_seg/mri/aparc+aseg.nii.gz \
-	--regheader $data_seg/mri/aparc+aseg.nii.gz \
+	--seg $data_seg/mri/aparc+aseg.mgz \
+	--regheader $data_seg/mri/aparc+aseg.mgz \
 	--temp $input_nii_gz \
 	--o volume.nii.gz
 
 echo "running main"
-
-#matlab -nodisplay -nosplash -r main
 time python $SERVICE_DIR/main.py
 
 ret=$?
@@ -58,7 +58,7 @@ if [ $ret -ne 0 ]; then
     exit $ret
 fi
 
-if [ -s csa_prob.tck ];
+if [ -s track.tck ];
 then 
 	echo 0 > finished
 else 
