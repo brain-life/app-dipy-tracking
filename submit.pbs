@@ -22,7 +22,7 @@ if [ $ENV == "IUHPC" ]; then
 		module load freesurfer/6.0.0
 	fi
 	
-	export PYTHONPATH=$PYTHONPATH:/N/u/aryaam/Karst/github_repos/dipy
+	export PYTHONPATH=$PYTHONPATH:/N/u/aryaam/Karst/dipy
 	export PYTHONPATH=$PYTHONPATH:/N/u/aryaam/Karst/github_repos/nibabel
 fi
 
