@@ -5,16 +5,23 @@
 
 #ENV="IUHPC"
 
+[ $PBS_O_WORKDIR ] && cd $PBS_O_WORKDIR
+
 if [ $ENV == "IUHPC" ]; then
 	cd $PBS_O_WORKDIR
 	module unload python
 	module load dipy
 fi
 
-#matlab -nodisplay -nosplash -r main
-python main.py
+if [ $ENV == "VM" ]; then
+	export PYTHONPATH=$PYTHONPATH:/usr/local/dipy
+	export PYTHONPATH=$PYTHONPATH:/usr/local/nibabel
+fi
 
-if [-s csa_prob.trk ];
+#matlab -nodisplay -nosplash -r main
+time python main.py
+
+if [-s csa_prob.tck ];
 then 
 	echo 0 > finished
 else 

@@ -34,6 +34,7 @@ def main():
     dmri_image = nib.load(config['data_file'])
     dmri = dmri_image.get_data()
     affine = dmri_image.affine
+    print(affine.shape)
     aparc_im = nib.load(config['data_fs_seg'])
     aparc = aparc_im.get_data()
     end = time.time()
@@ -93,8 +94,7 @@ def main():
     print('Created the Tissue Classifier: ' + str(time.time() - start))
 
     # Create the probabilistic model
-    streamlines = LocalTracking(prob_dg, tissue_classifier=classifier, seeds=seeds, affine=affine,
-                                step_size=.5, max_cross=1)
+    streamlines = LocalTracking(prob_dg, tissue_classifier=classifier, seeds=seeds, step_size=.5, max_cross=1,affine=affine)
     print('Created the probabilistic model: ' + str(time.time() - start))
 
     # Compute streamlines and store as a list.
@@ -102,8 +102,8 @@ def main():
     print('Computed streamlines: ' + str(time.time() - start))
     
     # Create a tractogram from the streamlines and save it 
-    tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
-    save(tractogram, 'csa_prob.tck')
+    tractogram = Tractogram(streamlines, affine_to_rasmm=np.eye(4))
+    save(tractogram, 'track.tck')
     end = time.time()
     print("Created the tck file: " + str((end - start)))
 
