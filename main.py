@@ -35,7 +35,7 @@ def main():
     dmri = dmri_image.get_data()
     affine = dmri_image.affine
     print(affine.shape)
-    aparc_im = nib.load(config['data_fs_seg'])
+    aparc_im = nib.load(config['freesurfer'])
     aparc = aparc_im.get_data()
     end = time.time()
     print('Loaded Files: ' + str((end - start)))
