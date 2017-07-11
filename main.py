@@ -34,8 +34,8 @@ def main():
     dmri_image = nib.load(config['data_file'])
     dmri = dmri_image.get_data()
     affine = dmri_image.affine
-    fs = config['freesurfer']+'/mri/aparc+aseg.mgz'
-    aparc_im = nib.load(fs)
+    #aparc_im = nib.load('config['freesurfer'])
+    aparc_im = nib.load('volume.nii.gz')
     aparc = aparc_im.get_data()
     end = time.time()
     print('Loaded Files: ' + str((end - start)))
