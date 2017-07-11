@@ -102,7 +102,7 @@ def main():
     print('Computed streamlines: ' + str(time.time() - start))
     
     # Create a tractogram from the streamlines and save it 
-    tractogram = Tractogram(streamlines, affine_to_rasmm=np.eye(4))
+    tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
     save(tractogram, 'track.tck')
     end = time.time()
     print("Created the tck file: " + str((end - start)))
