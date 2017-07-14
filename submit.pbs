@@ -20,13 +20,13 @@ if [ $ENV == "IUHPC" ]; then
 		module load freesurfer/6.0.0
 	fi
 	
-	export PYTHONPATH=$PYTHONPATH:/N/u/brlife/Karst/git/dipy
-	export PYTHONPATH=$PYTHONPATH:/N/u/aryaam/Karst/github_repos/nibabel
+	export PYTHONPATH=/N/u/brlife/Karst/git/dipy:$PYTHONPATH
+	export PYTHONPATH=/N/u/aryaam/Karst/github_repos/nibabel:$PYTHONPATH
 fi
 
 if [ $ENV == "VM" ]; then
-	export PYTHONPATH=$PYTHONPATH:/usr/local/dipy
-	export PYTHONPATH=$PYTHONPATH:/usr/local/nibabel
+	export PYTHONPATH=/usr/local/dipy:$PYTHONPATH
+	export PYTHONPATH=/usr/local/nibabel:$PYTHONPATH
 fi
 
 input_nii_gz=`$SERVICE_DIR/jq -r .data_file config.json`
