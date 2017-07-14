@@ -17,8 +17,6 @@ if [ $ENV == "IUHPC" ]; then
 		module load freesurfer/6.0.0
 	fi
 	if [ $HPC == "CARBONATE" ]; then
-		module unload python
-		module load anaconda/python2.7
 		module load freesurfer/6.0.0
 	fi
 	
