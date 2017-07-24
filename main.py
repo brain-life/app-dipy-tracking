@@ -101,6 +101,9 @@ def main():
     streamlines = list(streamlines)
     print('Computed streamlines: ' + str(time.time() - start))
     
+    from dipy.tracking.streamline import transform_streamlines
+    streamlines = transform_streamlines(streamlines, np.linalg.inv(affine))
+    
     # Create a tractogram from the streamlines and save it 
     tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
     tractogram.apply_affine(np.linalg.inv(affine))
