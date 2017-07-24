@@ -17,25 +17,19 @@ from nibabel.streamlines import Tractogram, save
 from dipy.reconst.csdeconv import (ConstrainedSphericalDeconvModel,
                                    auto_response)
 from dipy.direction import ProbabilisticDirectionGetter
-"""
-env = os.environ['ENV']
-if env == 'IUHPC':
-    sys.path.append("/N/dc2/projects/lifebid/code/aarya/dipy")
-if env == 'VM':
-    sys.path.append("/usr/local/dipy") #add this on jetstream
-"""
+
+
 def main():
     start = time.time()
 
-    with open('config.json') as config_json:
+    with open('config2.json') as config_json:
         config = json.load(config_json)
-    
+
     # Load the data
     dmri_image = nib.load(config['data_file'])
     dmri = dmri_image.get_data()
     affine = dmri_image.affine
-    print(affine.shape)
-    aparc_im = nib.load(config['data_fs_seg'])
+    aparc_im = nib.load(config['freesurfer'])
     aparc = aparc_im.get_data()
     end = time.time()
     print('Loaded Files: ' + str((end - start)))
@@ -44,7 +38,7 @@ def main():
     start = time.time()
     wm_regions = [2, 41, 16, 17, 28, 60, 51, 53, 12, 52, 12, 52, 13, 18,
                   54, 50, 11, 251, 252, 253, 254, 255, 10, 49, 46, 7]
-
+    
     wm_mask = np.zeros(aparc.shape)
     for l in wm_regions:
         wm_mask[aparc == l] = 1
@@ -68,7 +62,7 @@ def main():
                                  min_separation_angle=45,
                                  mask=wm_mask)
     print('Creating CSA Model: ' + str(time.time() - start))
-
+    
     # Begins the seed in the wm tracts
     seeds = utils.seeds_from_mask(wm_mask, density=[1, 1, 1], affine=affine)
     print('Created White Matter seeds: ' + str(time.time() - start))
@@ -100,23 +94,14 @@ def main():
     # Compute streamlines and store as a list.
     streamlines = list(streamlines)
     print('Computed streamlines: ' + str(time.time() - start))
-    
-    # Create a tractogram from the streamlines and save it 
-    tractogram = Tractogram(streamlines, affine_to_rasmm=affine))
+    from dipy.tracking.streamline import transform_streamlines
+    streamlines = transform_streamlines(streamlines, np.linalg.inv(affine))
+    # Create a tractogram from the streamlines and save it
+    tractogram = Tractogram(streamlines, affine_to_rasmm=affine)
+    #tractogram.apply_affine(np.linalg.inv(affine))
     save(tractogram, 'track.tck')
     end = time.time()
     print("Created the tck file: " + str((end - start)))
 
-    # Prepare the display objects.
-    print("Making pretty pictures")
-    if fvtk.have_vtk:
-        streamlines_actor = fvtk.line(streamlines, line_colors(streamlines))
-        # Create the 3d display.
-        r = fvtk.ren()
-        fvtk.add(r, streamlines_actor)
-        # Save still images for this static example.
-        fvtk.record(r, n_frames=1, out_path='probabilistic.png',
-                    size=(800, 800))
-    print ('Made pretty pictures')
 
 main()
