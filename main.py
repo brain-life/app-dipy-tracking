@@ -108,16 +108,4 @@ def main():
     end = time.time()
     print("Created the tck file: " + str((end - start)))
 
-    # Prepare the display objects.
-    print("Making pretty pictures")
-    if fvtk.have_vtk:
-        streamlines_actor = fvtk.line(streamlines, line_colors(streamlines))
-        # Create the 3d display.
-        r = fvtk.ren()
-        fvtk.add(r, streamlines_actor)
-        # Save still images for this static example.
-        fvtk.record(r, n_frames=1, out_path='probabilistic.png',
-                    size=(800, 800))
-    print ('Made pretty pictures')
-
 main()
