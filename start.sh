@@ -14,7 +14,7 @@ if [ -s track.tck ];
 then
 	echo 0 > finished
 else
-	echo "output_fe.mat missing"
+	echo "track.tck missing"
 	echo 1 > finished
 	exit 1
 fi
