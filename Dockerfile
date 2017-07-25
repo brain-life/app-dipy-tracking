@@ -17,3 +17,5 @@ ENV PYTHONPATH /dipy:$PYTHONPATH
 ENV PYTHONPATH /nibabel:$PYTHONPATH
 
 CMD python /app/main.py
+
+ENTRYPOINT ["/usr/bin/python", "/app/main.py"]
