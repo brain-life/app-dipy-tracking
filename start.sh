@@ -8,7 +8,7 @@ if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
 if [ $ENV == "SINGULARITY" ]; then
     
 cat <<EOT > _run.sh
-time singularity run /N/soft/rhel7/singularity/images/brainlife_dipy-tracking.img
+time singularity run /usr/local/images/brainlife_dipy-tracking.img
 #check for output files
 if [ -s track.tck ];
 then
