@@ -26,7 +26,7 @@ if env == 'VM':
 """
 def main():
     start = time.time()
-
+    print('no inverse transform')
     with open('config.json') as config_json:
         config = json.load(config_json)
     
